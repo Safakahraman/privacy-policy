@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilmo - Your AI Personal Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #fff;
+            background: #0A0E27;
+            min-height: 100vh;
+        }
+
+        /* Gradient background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 245, 255, 0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle animated glow */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .content { position: relative; z-index: 1; text-align: center; max-width: 700px; }
+
+        /* Logo */
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #00F5FF, #667EEA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            margin-bottom: 50px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+        .feature-icon { font-size: 28px; margin-bottom: 12px; }
+        .feature h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        .feature p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        /* App Store button */
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00F5FF, #667EEA);
+            border-radius: 14px;
+            color: #0A0E27;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 40px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+        }
+        .cta svg { width: 24px; height: 24px; }
+
+        /* Footer */
+        .footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: #00F5FF; }
+        .footer-company {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 36px; }
+            .tagline { font-size: 16px; }
+            .features { grid-template-columns: 1fr; }
+            .logo { width: 80px; height: 80px; font-size: 34px; border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="content">
+        <div class="logo">il</div>
+        <h1>Ilmo</h1>
+        <p class="tagline">Your AI-powered personal assistant that manages your day through natural voice and text conversations.</p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🗓</div>
+                <h3>Smart Calendar</h3>
+                <p>Create events, set reminders, and manage your schedule with natural language.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎙</div>
+                <h3>Voice Assistant</h3>
+                <p>Have natural conversations with your AI assistant through scheduled or on-demand calls.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📧</div>
+                <h3>Gmail Integration</h3>
+                <p>Read, summarize, and send emails without leaving the app.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">❤️</div>
+                <h3>Health Insights</h3>
+                <p>Track your health data and get personalized wellness suggestions.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌤</div>
+                <h3>Weather & Traffic</h3>
+                <p>Get real-time weather forecasts and traffic updates for your commute.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>Notes & Tasks</h3>
+                <p>Capture ideas, create to-do lists, and stay organized effortlessly.</p>
+            </div>
+        </div>
+
+        <a class="cta" href="https://apps.apple.com" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on the App Store
+        </a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="mailto:safa@feyy.com.tr">Contact Us</a>
+    </div>
+    <div class="footer-company">
+        <p>FEYY PROJE MUHENDISLIK LIMITED SIRKETI</p>
+        <p>&copy; 2026 Ilmo. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
